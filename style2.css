@@ -357,85 +357,136 @@ nav a{
 
 
 
-@media (max-width: 768px) {
 
-    .container{
+@media screen and (max-width: 768px) {
+    
+
+
+
+    .text-menu{
+        text-align: center;
+        
+    }
+
+    .logo-img{
+        display: none;
+    }
+
+
+    .container {
         flex-direction: column;
-        height: auto;
+        height: auto; /* ยกเลิกความสูงเต็มจอ เพื่อให้ Scroll ตามยาวได้ */
     }
 
-    .left-side{
+
+    .left-side {
+        width: 100%; /* กว้างเต็มจอ */
+        height: auto;
+        padding-bottom: 20px;
+        overflow-y: visible;
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+
+    .left-content {
+        display: flex;
+        flex-direction: row;      
+        flex-wrap: wrap;          
+        justify-content: center;  
+        align-items: center;      
+        gap: 15px;     
+    }
+
+
+    .left-menu {
+        font-size: 14px;          
+        white-space: nowrap;    
+    }
+    .left-menu:hover{
+        background-color: rgb(13, 14, 14);
+    }
+  
+    .main {
         width: 100%;
         height: auto;
-        position: relative;
+        overflow-y: visible;
     }
 
-    nav{
+
+    nav {
         width: 100%;
-        position: fixed;
-        top: 0;
-        border-radius: 0;
-        padding-left: 10px;
-        padding-right: 10px;
+        left: 0;   
+        position: fixed; 
+        padding: 10px;
+        justify-content: space-between;
     }
 
-    .contents{
-        margin-left: 10px;
-        margin-right: 10px;
+    #home {
+        margin-left: 10px; 
+    }
+
+    nav .nav-rightside {
+        display: flex;
+        gap: 5px; 
+    }
+
+ 
+    .contents {
+        margin-left: 20px; 
+        margin-right: 20px; 
+        margin-top: 100px;  
         padding-left: 0;
-        margin-top: 100px; /* เลื่อนลงให้พ้น nav */
     }
 
-    .contents-pets{
-        margin-left: 10px;
-        margin-right: 10px;
+    /* แบ่งครึ่งจอ (50%) ให้เต็มจอ (100%) */
+    .class-left-contents, 
+    .class-right-contents {
+        width: 100%;
+        margin-top: 30px;
+        padding-left: 0;
     }
 
-    /* รูป hex, class */
-    .hexchess-img, .class-img{
-        width: 140px;
-        height: 140px;
+    .class-content {
+        flex-direction: column; 
     }
 
-    .hexchess-content, .future-content, .etc-content{
-        justify-content: center;
-        gap: 20px;
+    /* 7. ปรับรูปภาพ */
+    .hexchess-img, 
+    .class-img {
+        width: 85%; 
+        max-width: 300px; /* แต่ไม่เกิน 300px (กันภาพแตก)*/
+        height: auto;
+        margin: 0 auto; 
+        display: block;
     }
 
-    /* ตารางต่าง ๆ */
-    table{
+    .outfits-img {
+        width: 100%;
+        height: auto;
+    }
+
+
+    .code-content {
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    .pets-table, .outfits-table {
+        display: block; 
+        overflow-x: auto;
+    }
+    
+    .pets-img{
+    width: 100%;
+}
+    th, td {
+        padding: 10px 5px; 
         font-size: 14px;
     }
+    
 
-    td, th{
-        padding: 12px 0;
-    }
-
-    /* ส่วน class page */
-    .class-left-contents,
-    .class-right-contents{
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    /* code box */
-    .code-content{
-        width: 100%;
-        margin: 20px 0;
-    }
-
-    /* รูป outfits */
-    .outfits-img{
-        width: 100%;
-        max-width: 300px;
-    }
-
-    /* calculator */
-    .cal-elm{
-        padding: 20px;
-    }
-
-    .cal-button{
-        width: 60%;
+    .hexchess-content, .future-content, .etc-content {
+        justify-content: center;
+        gap: 20px;
     }
 }

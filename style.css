@@ -1,0 +1,231 @@
+/* ==========================================================================
+   RESPONSIVE ARCHITECTURE OVERRIDES (2025 STANDARD)
+   ========================================================================== */
+
+/* 1. BASELINE NORMALIZATION
+   Ensures consistent rendering engine behavior across mobile viewports. */
+html {
+    -webkit-text-size-adjust: 100%; /* Prevent font inflation on iOS */
+    text-size-adjust: 100%;
+}
+
+/* 2. TABLET OPTIMIZATION TIER (769px - 1024px)
+   Targets landscape tablets and small laptops where the 20% sidebar 
+   starts to look cramped but a full mobile stack isn't needed yet. */
+@media screen and (max-width: 1024px) {
+   .left-side {
+        width: 25%; /* Slightly wider sidebar for touch targets */
+    }
+    
+    nav {
+        width: 73%; /* Adjust nav to prevent overlap */
+        left: 26%;
+    }
+
+   .hexchess-content,.future-content,.etc-content {
+        gap: 20px; /* Compress gaps to fit more content */
+        justify-content: center; /* Center items if they wrap */
+    }
+}
+
+/* 3. MOBILE & PORTRAIT TABLET TIER (Max-Width: 768px)
+   The primary breakpoint for "Axis Inversion". */
+@media screen and (max-width: 768px) {
+
+    /* --- LAYOUT ENGINE RE-ARCHITECTURE --- */
+    
+   .container {
+        /* Switch Main Axis from Horizontal (Row) to Vertical (Column) */
+        flex-direction: column; 
+        height: auto; /* Release fixed height constraint */
+        min-height: 100vh; /* Use min-height instead */
+    }
+
+   .left-side {
+        /* Sidebar becomes a Top Navigation Block */
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px 0;
+        overflow: visible;
+        order: -1; /* Ensure it sits at the top visually */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Center menu items */
+    }
+
+   .left-content {
+        flex-direction: row; /* Horizontal menu items */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+   .left-menu {
+        /* Convert list items to touch-friendly buttons */
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+   .main {
+        /* Unlock content width */
+        width: 100%;
+        height: auto;
+        padding-bottom: 60px; /* Safe area for scrolling */
+    }
+
+    /* --- NAVIGATION BAR TRANSFORMATION --- */
+    
+    nav {
+        position: relative; /* Un-fix the nav to let it scroll naturally */
+        width: 100%;
+        top: 0;
+        left: 0;
+        margin-left: 0;
+        border-radius: 0;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    nav.nav-rightside {
+        margin-left: 0; /* Reset auto margin */
+    }
+
+   .contents {
+        /* Reset margins that were pushing content away from the sidebar */
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 20px;
+        padding-left: 0;
+    }
+
+    /* --- GRID SYSTEM ADAPTATION --- */
+
+   .hexchess-content,.future-content,.etc-content {
+        gap: 20px;
+    }
+
+   .hexchess-img,.class-img {
+        /* Fluid scaling for images */
+        width: 100%;
+        max-width: 300px; /* Cap width for aesthetics */
+        height: auto; /* Maintain aspect ratio */
+        aspect-ratio: 1/1; /* Enforce square if image fails to load */
+    }
+
+   .class-content {
+        flex-direction: column; /* Stack schedule vertically */
+    }
+
+   .class-left-contents,.class-right-contents {
+        width: 100%; /* Full width stack */
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+   .code-content {
+        width: 100%;
+        margin: 30px 0;
+    }
+
+   .outfits-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* --- INTERACTIVE ELEMENT ERGONOMICS --- */
+
+   .cal-container {
+        justify-content: space-between;
+    }
+
+   .cal-button {
+        /* Touch Target Optimization */
+        width: 48%; /* 2 buttons per row */
+        padding: 15px 0; /* Increase vertical hit area */
+        margin-top: 15px;
+        font-size: 18px; /* Larger text for readability */
+    }
+
+    input {
+        /* Prevent iOS Zoom on Focus */
+        font-size: 16px!important; 
+        padding: 12px;
+    }
+}
+
+/* 4. DATA TABLE TRANSFORMATION (THE CARD PATTERN)
+   Converts rigid tables into responsive data cards. 
+   REQUIRES HTML UPDATE: Add data-label="HeaderName" to td elements. */
+@media screen and (max-width: 600px) {
+   .pets-table,.pets-table tbody,.pets-table th,.pets-table td,.pets-table tr { 
+        display: block; 
+        width: 100%;
+    }
+
+    /* Hide Table Headers Visually but keep for screen readers */
+   .pets-table thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+   .pets-table tr { 
+        margin-bottom: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        background: rgba(0,0,0,0.2); /* Differentiate cards */
+        padding: 10px;
+    }
+
+   .pets-table td { 
+        /* Behave like a row */
+        border: none;
+        border-bottom: 1px solid rgba(255,255,255,0.05); 
+        position: relative;
+        padding-left: 40%; /* Make space for label */
+        text-align: right;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+   .pets-table td:before { 
+        /* Inject the label */
+        position: absolute;
+        top: 12px;
+        left: 10px;
+        width: 35%; 
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: rgb(228, 200, 42); /* Match h3 color */
+        content: attr(data-label); 
+    }
+}
+
+/* 5. INTERACTION STATE MANAGEMENT
+   Solves the "Sticky Hover" problem on touch devices. */
+@media (hover: hover) {
+    /* Only apply hover styles if the device has a mouse */
+   .left-menu:hover {
+        background-color: rgb(43, 126, 126);
+    }
+   .class-img:hover,.hexchess-img:hover {
+        transform: scale(1.1);
+    }
+}
+
+@media (hover: none) {
+    /* Touch devices get Active state instead */
+   .left-menu:active {
+        background-color: rgb(43, 126, 126);
+        transition: background-color 0.1s;
+    }
+    /* Disable zoom transform on touch to prevent layout shifting */
+   .class-img:hover,.hexchess-img:hover {
+        transform: none;
+    }
+}
